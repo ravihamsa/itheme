@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Index</title>
+</head>
+<body>
+<div onbeforeclose="templateEventHandler(this, 'beforeClose')" onclick="expandContainer(this, 'click')" onshow="templateEventHandler(this, 'show')" onpageview="templateEventHandler(this, 'pageView')" onafterload="templateEventHandler(this, 'afterLoad')" onbeforeload="hideDescription(this, 'beforeLoad')" expandheight="48" type="0" expandable="false" datasource="IFC" safeheight="48" totalwidth="320" appearance="none" name="MainContainer" style="background-color:rgb(255, 255, 255);left:0px;top:0px;margin:0px;padding:0px;position:absolute;border:1px solid rgb(0, 0, 0);width:318px;height:46px;overflow:hidden;" class="devicepreview max" id="container"><div style="width:318px;height:46px;left:0px;top:0px;line-height:18px;z-index:3;overflow:hidden;position:absolute;padding:0px;margin:0px;" parent="preview_dag" appearance="none" dagtype="ContainerBox" name="ContainerBox1" id="Dag_ContainerBox1" class="dag max "><a style="width:318px;height:46px;left:0px;top:0px;line-height:18px;z-index:999;overflow:hidden;position:absolute;padding:0px;" onclick="buyNow(this, 'click')" parent="Dag_ContainerBox1" appearance="none" dagtype="Anchor" name="Anchor1" id="Dag_Anchor1" class="dagchild max "><div style="text-align:left;left:251px;top:26px;line-height:14px;border-color:transparent;overflow:hidden;position:absolute;width:66px;height:19px;background-color:rgb(0, 31, 252);z-index:3;vertical-align:middle;border-top-left-radius:2px;border-top-right-radius:2px;border-bottom-right-radius:2px;border-bottom-left-radius:2px;text-shadow:black 1px 1px 1px;" parent="Dag_Anchor1" appearance="none" dagtype="TextField" name="TextField7" id="Dag_TextField7" class="table dagchild max "><p style="text-align:center;vertical-align:middle;" class="table-cell "><span style="color:#ffffff;font-family:arial, helvetica, sans-serif;font-size:12px;"><span id="Dag_TextField7_text">Buy Now</span></span></p></div></a><div style="text-align:left;width:230px;height:24px;left:85px;top:1px;line-height:12px;overflow:hidden;position:absolute;padding:0px;vertical-align:middle;" parent="Dag_ContainerBox1" appearance="none" dagtype="TextField" datakey="IFC:displaydata:title" name="title" id="Dag_TextField2" class="dagchild max "><p class="table-cell " style="text-align:left;vertical-align:middle;"><span style="font-size:11px;color:#ff6600;"><span style="font-family:arial, helvetica, sans-serif;"><span id="Dag_TextField2_text">WELLA by Wella for UNISEX KOLESTON PERFECT COLOR 12/0 SPECIAL BLONDE/NATURAL 2OZ</span></span></span></p></div><div style="width: 50px; height: 17px; left: 84px; top: 29px; line-height: 18px; overflow: hidden; position: absolute; padding: 0px; display: block;" parent="Dag_ContainerBox1" appearance="none" dagtype="Image" datakey="IFC:displaydata:ecn_merchant_logo_url" name="ecn_merchant_logo_url" id="Dag_Image10" class="dagchild max "><img style="width:100%;height:100%;left:0px;top:0px;position:absolute;" src="http://img.shopping.com/cctool/merch_logos/11716.gif" id="Dag_Image10_img"></div><div style="text-align:left;width:48px;height:17px;left:199px;top:29px;line-height:18px;overflow:hidden;position:absolute;padding:0px;vertical-align:middle;" parent="Dag_ContainerBox1" appearance="none" dagtype="TextField" datakey="IFC:displaydata:price" name="price" id="Dag_TextField4" class="dagchild max "><p class="table-cell " style="text-align:center;vertical-align:middle;"><span style="color:#000080;"><span style="font-size:12px;"><span style="font-family:arial, helvetica, sans-serif;"><span id="Dag_TextField4_text">$ 12.36</span></span></span></span></p></div><div style="width: 80px; height: 80px; left: 0px; top: -30px; line-height: 14px; overflow: hidden; position: absolute; padding: 0px; display: block;" parent="Dag_ContainerBox1" appearance="moveVertical" dagtype="Image" datakey="IFC:displaydata:imageurl" name="imageurl" id="Dag_Image11" class="dagchild max "><img style="width:100%;height:100%;left:0px;top:0px;position:absolute;" src="http://di70.shopping.com/images/di/72/44/49/552d495758776e78574e74614c684348766377-250x250-0-0.jpg?p=p14.d704583ba00ab638a658&amp;a=1&amp;c=1&amp;l=8082203&amp;r=8&amp;pr=8&amp;dipr=1&amp;pid=119431924&amp;lks=119243&amp;fks=119243&amp;pdid=rDIU-IWXwnxWNtaLhCHvcw%3D%3D" id="Dag_Image11_img"></div><div style="text-align:left;width:60px;height:14px;left:137px;top:31px;line-height:14px;overflow:hidden;position:absolute;padding:0px;" parent="Dag_ContainerBox1" appearance="none" dagtype="TextField" datakey="IFC:displaydata:originalprice" name="originalprice" id="Dag_TextField6" class="dagchild max "><p style="text-align:center;"><span style="text-decoration:line-through;color:#800000;"><span style="font-family:arial, helvetica, sans-serif;font-size:11px;text-decoration:line-through;"><span id="Dag_TextField6_text">$ 13</span></span></span></p></div></div></div>
+
+<script src="scripts/underscore.js"></script>
+<script src="scripts/color.js"></script>
+<script>
+
+    var treshold=10;
+    var colorArray = ['#000000', '#D81515', '#FFFFFF', '#5A5A5A', '#CCCCCC', '#868686'];
+
+    var brightnessIndex = _.map(colorArray,function(colorString){
+        return {
+            brightness : new RGBColor(colorString).brightness(),
+            color:colorString
+        }
+    });
+
+    var getClosestColor = function(colorString, treshold){
+        var brightness = new RGBColor(colorString).brightness();
+        var closeObject = _.find(brightnessIndex,function(item){
+            return Math.abs(item.brightness - brightness) < treshold;
+        })
+        if(closeObject){
+            return closeObject.color;
+        }else{
+            console.log('match not found', colorString, treshold);
+            return getClosestColor(colorString, treshold+10);
+        }
+    }
+
+    var elements = document.getElementsByTagName('*');
+    for(var i = 0; i<elements.length; i++){
+        if(elements[i].style.getPropertyValue('background-color')){
+            var color = new RGBColor( elements[i].style.getPropertyValue('background-color'));
+            var closestColor = getClosestColor(color.toHex(),treshold);
+            console.log(elements[i],'background-color', color, closestColor);
+            elements[i].style.setProperty('background-color', closestColor);
+        }
+
+        if(elements[i].style.getPropertyValue('color')){
+            var color = new RGBColor( elements[i].style.getPropertyValue('color'));
+            var closestColor = getClosestColor(color.toHex(),treshold);
+            console.log( elements[i],'color', color, closestColor);
+            elements[i].style.setProperty('color', closestColor);
+        }
+    }
+
+
+
+</script>
+</body>
+</html>

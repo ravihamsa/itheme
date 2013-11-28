@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Index</title>
+    <link rel="stylesheet" href="css/bootstrap.css"/>
+    <link rel="stylesheet" href="css/kensho.css"/>
+
+    <style>
+        @font-face {
+            font-family: 'din-med';
+            src: url('http://myntra.myntassets.com/skin2/fonts/1D41FF_1_0.eot');
+            src: url('http://myntra.myntassets.com/skin2/fonts/1D41FF_1_0.eot?#iefix') format('embedded-opentype'),
+            url('http://myntra.myntassets.com/skin2/fonts/1D41FF_1_0.woff') format('woff'),
+            url('http://myntra.myntassets.com/skin2/fonts/1D41FF_1_0.ttf') format('truetype'),
+            url('http://myntra.myntassets.com/skin2/fonts/jotting_regular-webfont.svg#webfonttEfFltbI') format('svg')
+        }
+    </style>
+
+    <style>
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI';
+        }
+
+
+        .logo {
+            padding:15px;
+            display: inline-block;
+        }
+        .colorList li {
+            display: inline-block;
+            border: 1px solid #ccc;
+            padding: 10px;
+            width: 50px;
+            text-align: center;
+        }
+
+        .banner {
+
+            width: 320px;
+            height: 50px;
+            border: 1px solid #ccc;
+            position: relative;
+        }
+
+        .title {
+            position: absolute;
+            width: 220px;
+            height: 20px;
+            left: 0px;
+            padding: 5px 7px;
+            top: 10px;
+            font-size: 16px;
+            line-height: 20px;
+
+        }
+
+        .shadow {
+            -moz-box-shadow:  0 0 2px #000;
+            -webkit-box-shadow:  0 0 2px #000;
+            box-shadow:  0 0 2px #000;
+        }
+
+        .button {
+            position: absolute;
+            right: 7px;
+            padding: 1px;
+            top: 10px;
+            font-family: arial;
+            font-weight: bold;
+            font-size: 12px;
+            padding: 5px;
+            border-radius: 3px;
+
+        }
+
+        #demoContainer {
+            position: relative;
+            margin: 20px;
+            background-color: #fff;
+        }
+
+        .demo-item {
+            height: 490px;
+            display: inline-block;
+            position: relative;
+        }
+
+        .demo-item iframe {
+            border: 1px solid #ccc;
+            margin-right: 20px;
+        }
+
+        #app-body{
+            padding: 20px;
+            border: 1px solid #dae2e7;
+            border-radius: 5px;
+            background-color: #fff;
+            box-shadow: 0 0 5px #DAE2E7;
+        }
+        #header {
+            border-bottom: 1px solid #ccc;
+            margin-bottom: 10px;
+        }
+
+        #siteListContainer {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="header">
+    <div class="container">
+        <a href="#" class="logo"><img src="images/inmobi-logo.png"> </a>
+    </div>
+</div>
+
+<div class="container">
+    <div id="siteListContainer">
+
+    </div>
+
+    <div id="app-body">
+
+        <div id="demoContainer">
+
+        </div>
+    </div>
+
+
+
+</div>
+
+<div id="container1">
+
+</div>
+
+<div id="container2">
+
+</div>
+
+
+
+<script type="text/x-handlebars-template" id="bannerTemplate">
+    <div class='color1 banner'>
+        <div class='title color2'> Want to play AngryBirds ?
+
+        </div>
+        <div class='button color3 shadow'> Download Now</div>
+    </div>
+</script>
+
+
+<script src="scripts/jquery-1.10.2.min.js"></script>
+<script src="scripts/TweenMax.min.js"></script>
+<script src="scripts/underscore.js"></script>
+<script src="scripts/pusher.color.min.js"></script>
+<script src="scripts/itheme2.js"></script>
+</body>
+</html>
