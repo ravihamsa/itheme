@@ -17,7 +17,7 @@ var siteList = [
     },
     {
         label: 'CRICBUZZ',
-        url: 'http://m4.cricbuzz.com/l'
+        url: 'http://cricbuzz.com/'
     },
     {
         label: 'Techcrunch',
