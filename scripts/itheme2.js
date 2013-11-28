@@ -16,6 +16,10 @@ var siteList = [
         url: 'http://m.espncricinfo.com/'
     },
     {
+        label: 'CRICBUZZ',
+        url: 'http://m4.cricbuzz.com/l'
+    },
+    {
         label: 'Techcrunch',
         url: 'http://techcrunch.com/'
     },
@@ -46,6 +50,46 @@ var siteList = [
     {
         label: 'Business Insider',
         url: 'http://www.businessinsider.in/'
+    },
+    {
+        label: 'Wikipedia',
+        url: 'http://www.wikipedia.org/'
+    },
+    {
+        label: 'Ebay',
+        url: 'http://m.ebay.com/'
+    },
+    {
+        label: 'Microsoft',
+        url: 'http://www.microsoft.com'
+    },
+    {
+        label: 'BBC',
+        url: 'http://m.bbc.co.uk/'
+    },
+    {
+        label: 'CNN',
+        url: 'http://edition.cnn.com/'
+    },
+    {
+        label: 'Adobe',
+        url: 'http://adobe.com/'
+    },
+    {
+        label: 'CNet',
+        url: 'http://cnet.com'
+    },
+    {
+        label: 'Slideshare',
+        url: 'http://www.slideshare.net/mobile/'
+    },
+    {
+        label: 'Forbes',
+        url: 'http://www.forbes.com/'
+    },
+    {
+        label: 'Easyports',
+        url: 'http://www.easports.com/'
     }
 ];
 
@@ -54,11 +98,12 @@ var getGlobalCallback = function (context) {
     var callback = function (fullData) {
         var data = fullData.colors;
         var colors = [];
-        for (var i = 0; i < 25; i++) {
-            var colorObj = data[i];
-            if (colorObj && colorObj.color) {
-                colorObj = colorObj.color;
-                colors.push(pusher.color('rgb', colorObj.red, colorObj.green, colorObj.blue).hex6());
+        for (var i = 0; i < 20; i++) {
+            var dataObj = data[i];
+            if (dataObj && dataObj.color) {
+                var colorObj = dataObj.color;
+
+                colors.push({color:pusher.color('rgb', colorObj.red, colorObj.green, colorObj.blue).hex6(), pixelCount:dataObj.value});
             }
         }
         context.renderBanner(colors, fullData.font);
@@ -70,27 +115,35 @@ var getGlobalCallback = function (context) {
 
 
 var AdDemo = function (config) {
+    var _this = this;
     this.root = $('<div class="demo-item"></div>');
+
+
+
+
     /*
      this.root.css({
      right: config.rightPos
      })
 
      */
-    this.root.appendTo('#demoContainer');
+    this.root.prependTo('#demoContainer');
     this.scriptUrl = config.scriptUrl;
     this.onRenderAd = config.onRenderAd;
 
     this.container = config.container;
 
     this.getButtonColor = config.getButtonColor;
+
+
+
 }
 
 AdDemo.prototype = {
     setSite: function (site) {
         this.site = site;
         this.renderIFrame();
-        this.loadColors();
+        //this.loadColors();
 
         if (this.bannerElement) {
             TweenLite.to(this.bannerElement, animationSpeed, {css: {opacity: 0, scale: 0}});
@@ -99,10 +152,25 @@ AdDemo.prototype = {
         if (this.iframeElement) {
             //TweenLite.to(this.iframeElement, animationSpeed, {css: {opacity: 0, scale: 0}});
         }
+
+        var paletteElement = $('#' + this.container);
+        paletteElement.empty();
     },
     renderIFrame: function () {
+        var _this = this;
         var element = this.iframeElement;
         if (!element) {
+            var button = $('<div class="button-div"><button>Show Add</button></div>')
+            button.appendTo(this.root);
+            button.on('click', 'button',function(){
+                var url = $('#sitePicker').val();
+                if(url=== ''){
+                    return;
+                }
+                _this.loadColors();
+            })
+
+
             element = $('<iframe  class="preview"  width="320" height="430"></iframe>')
             element.appendTo(this.root);
             this.iframeElement = element;
@@ -112,21 +180,27 @@ AdDemo.prototype = {
     },
     loadColors: function () {
         var _this = this;
+        this.root.addClass('loading');
         var element = this.scriptElement;
         if (element) {
             element.remove();
         }
         element = $('<script></script>')
         var callbackName = getGlobalCallback(this);
+        /*
         element.prop('onload', function () {
             if (_this.onRenderAd) {
-                setTimeout(_this.onRenderAd, 1000);
+                setTimeout(_this.onRenderAd, 3500);
             }
         });
 
+        */
         element.prop('src', this.scriptUrl + '&callback=' + callbackName + '&url=' + this.site);
         element.appendTo(this.root);
         this.scriptElement = element;
+
+
+
 
 
     },
@@ -134,8 +208,8 @@ AdDemo.prototype = {
 
         var grayCount = 0;
 
-        var colorObjectsArray = _.map(colorArray, function (colorString) {
-            return  pusher.color(colorString);
+        var colorObjectsArray = _.map(colorArray, function (item) {
+            return  pusher.color(item.color);
         })
 
         colorObjectsArray = _.filter(colorObjectsArray, function (item) {
@@ -189,8 +263,7 @@ AdDemo.prototype = {
 
         TweenLite.to(element, animationSpeed, {css: {opacity: 1, scale: 1}});
 
-        var element = $('#' + this.container);
-        element.empty();
+
 
         var buildBar = function (label, fn) {
             var sortedArr = _.sortBy(colorObjectsArray, fn);
@@ -215,9 +288,38 @@ AdDemo.prototype = {
             ul.appendTo(element);
         }
 
-        buildBar('no sorting', function (item) {
-            return 0;
-        })
+        var paletteElement = $('#' + this.container);
+        paletteElement.empty();
+
+        var buildBar2 = function(label){
+            var sortedArr = colorArray;
+
+
+
+
+
+            var ul = $('<ul class="colorList"></ul>');
+
+            _.each(sortedArr, function (item) {
+                var color = pusher.color(item.color);
+
+                var li = $('<li></li>');
+                li.css({
+                    'background-color': color.hex6(),
+                    'color': color.contrastWhiteBlack().hex6()
+                })
+
+                li.append(item.pixelCount);
+
+                li.appendTo(ul);
+
+            })
+            ul.appendTo(paletteElement);
+        }
+
+
+
+        buildBar2('Color Pallet')
         /*
         buildBar('saturation', function (item) {
             return item.saturation();
@@ -256,6 +358,8 @@ AdDemo.prototype = {
          return item.hex6()
          })
          */
+
+        this.root.removeClass('loading');
     }
 }
 
@@ -263,7 +367,7 @@ var animationSpeed = 1;
 
 
 var renderSiteList = function () {
-    var select = $('<select class="form-control"></select>')
+    var select = $('<select class="form-control" id="sitePicker"></select>')
     var option = $('<option value="">Select A Site</option>');
     option.appendTo(select);
     _.each(siteList, function (item) {
@@ -276,7 +380,7 @@ var renderSiteList = function () {
 
 
     var demo3 = new AdDemo({
-        scriptUrl: 'http://10.14.119.108:3000/dominantColors?pixelcount=230&noua=false&width=320&height=480',
+        scriptUrl: 'http://10.14.125.42:3000/dominantColors?pixelcount=330&noua=false&width=320&height=480',
         rightPos: 350,
         container: 'container3',
         getButtonColor: function (colorObjectsArray) {
@@ -289,9 +393,9 @@ var renderSiteList = function () {
     })
 
     var demo2 = new AdDemo({
-        scriptUrl: 'http://10.14.119.108:3000/dominantColors?pixelcount=430&noua=false&width=320&height=480',
+        scriptUrl: 'http://10.14.125.42:3000/dominantColors?pixelcount=430&noua=false&width=320&height=480',
         rightPos: 350,
-        container: 'container1',
+        container: 'container2',
         getButtonColor: function (colorObjectsArray) {
             var sortedArr = _.sortBy(colorObjectsArray, function (item) {
                 return item.saturation();
@@ -305,12 +409,12 @@ var renderSiteList = function () {
     })
 
     var demo1 = new AdDemo({
-        scriptUrl: 'http://10.14.119.108:3000/dominantColors?pixelcount=100&noua=false&width=320&height=480',
+        scriptUrl: 'http://10.14.125.42:3000/dominantColors?pixelcount=100&noua=false&width=320&height=480',
         rightPos: 0,
         onRenderAd: function () {
             demo2.setSite(select.val());
         },
-        container: 'container2',
+        container: 'container1',
         getButtonColor: function (colorObjectsArray) {
             return colorObjectsArray[1].hex6();
         }
@@ -323,6 +427,8 @@ var renderSiteList = function () {
             return;
         }
         demo1.setSite(url);
+        demo2.setSite(url);
+        demo3.setSite(url);
     })
 }
 

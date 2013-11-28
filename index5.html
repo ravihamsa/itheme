@@ -9,10 +9,7 @@
         @font-face {
             font-family: 'din-med';
             src: url('http://myntra.myntassets.com/skin2/fonts/1D41FF_1_0.eot');
-            src: url('http://myntra.myntassets.com/skin2/fonts/1D41FF_1_0.eot?#iefix') format('embedded-opentype'),
-            url('http://myntra.myntassets.com/skin2/fonts/1D41FF_1_0.woff') format('woff'),
-            url('http://myntra.myntassets.com/skin2/fonts/1D41FF_1_0.ttf') format('truetype'),
-            url('http://myntra.myntassets.com/skin2/fonts/jotting_regular-webfont.svg#webfonttEfFltbI') format('svg')
+            src: url('http://myntra.myntassets.com/skin2/fonts/1D41FF_1_0.eot?#iefix') format('embedded-opentype'), url('http://myntra.myntassets.com/skin2/fonts/1D41FF_1_0.woff') format('woff'), url('http://myntra.myntassets.com/skin2/fonts/1D41FF_1_0.ttf') format('truetype'), url('http://myntra.myntassets.com/skin2/fonts/jotting_regular-webfont.svg#webfonttEfFltbI') format('svg')
         }
     </style>
 
@@ -24,11 +21,11 @@
             font-family: 'Segoe UI';
         }
 
-
         .logo {
-            padding:15px;
+            padding: 15px;
             display: inline-block;
         }
+
         .colorList li {
             display: inline-block;
             border: 1px solid #ccc;
@@ -58,9 +55,9 @@
         }
 
         .shadow {
-            -moz-box-shadow:  0 0 2px #000;
-            -webkit-box-shadow:  0 0 2px #000;
-            box-shadow:  0 0 2px #000;
+            -moz-box-shadow: 0 0 2px #000;
+            -webkit-box-shadow: 0 0 2px #000;
+            box-shadow: 0 0 2px #000;
         }
 
         .button {
@@ -79,27 +76,29 @@
         #demoContainer {
             position: relative;
             margin: 20px;
-            background-color: #fff;
         }
 
         .demo-item {
-            height: 490px;
+
             display: inline-block;
             position: relative;
+            margin-right: 70px;
         }
 
         .demo-item iframe {
             border: 1px solid #ccc;
-            margin-right: 20px;
         }
 
-        #app-body{
+        #app-body {
             padding: 20px;
             border: 1px solid #dae2e7;
             border-radius: 5px;
             background-color: #fff;
             box-shadow: 0 0 5px #DAE2E7;
+            margin-bottom: 10px;
+            background-color: #bbb;
         }
+
         #header {
             border-bottom: 1px solid #ccc;
             margin-bottom: 10px;
@@ -107,6 +106,18 @@
 
         #siteListContainer {
             margin-bottom: 10px;
+        }
+
+        .container {
+            width:1300px;
+            max-width: 1300px;
+        }
+        .button-div {
+            padding:10px 0;
+        }
+
+        .loading {
+            opacity: 0.5;
         }
     </style>
 </head>
@@ -131,21 +142,21 @@
     </div>
 
 
-
 </div>
+<div class="container">
+    <div class="palette-label">Palette-Top</div>
+    <div id="container1">
 
-<div id="container1">
+    </div>
+    <div class="palette-label">Palette-Body</div>
+    <div id="container2">
 
+    </div>
+    <div class="palette-label">Palette-Full</div>
+    <div id="container3">
+
+    </div>
 </div>
-
-<div id="container2">
-
-</div>
-
-<div id="container3">
-
-</div>
-
 
 
 <script type="text/x-handlebars-template" id="bannerTemplate">
