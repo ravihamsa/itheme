@@ -177,10 +177,14 @@ AdDemo.prototype = {
 
         //cosnole.log('1px 1px 1px '+colors[1].complement().hex6());
 
+
+        var buttonBackgroundColor =  this.getButtonColor(colorObjectsArray);
+
+
         element.find('.color3').css({
-            'color': pusher.color(colors[1]).contrastText().hex6(),
-            'background-color': this.getButtonColor(colorObjectsArray),
-            'box-shadow': '0 0 2px '+pusher.color(colors[1]).contrastText().hex6()
+            'color': pusher.color(buttonBackgroundColor).contrastText().hex6(),
+            'background-color': buttonBackgroundColor,
+            'box-shadow': '0 0 2px ' + pusher.color(buttonBackgroundColor).contrastText().hex6()
         })
 
         TweenLite.to(element, animationSpeed, {css: {opacity: 1, scale: 1}});
@@ -214,7 +218,7 @@ AdDemo.prototype = {
         buildBar('no sorting', function (item) {
             return 0;
         })
-
+        /*
         buildBar('saturation', function (item) {
             return item.saturation();
         })
@@ -225,7 +229,7 @@ AdDemo.prototype = {
         buildBar('isGray', function (item) {
             return item.grayvalue8()
         })
-        /*
+
 
 
 
@@ -270,6 +274,20 @@ var renderSiteList = function () {
     })
     select.appendTo('#siteListContainer');
 
+
+    var demo3 = new AdDemo({
+        scriptUrl: 'http://10.14.119.108:3000/dominantColors?pixelcount=230&noua=false&width=320&height=480',
+        rightPos: 350,
+        container: 'container3',
+        getButtonColor: function (colorObjectsArray) {
+            var sortedArr = _.sortBy(colorObjectsArray, function (item) {
+                return item.grayvalue8();
+            });
+            return sortedArr[sortedArr.length - 1].hex6();
+        }
+
+    })
+
     var demo2 = new AdDemo({
         scriptUrl: 'http://10.14.119.108:3000/dominantColors?pixelcount=430&noua=false&width=320&height=480',
         rightPos: 350,
@@ -279,6 +297,9 @@ var renderSiteList = function () {
                 return item.saturation();
             });
             return sortedArr[sortedArr.length - 1].hex6();
+        },
+        onRenderAd: function () {
+            demo3.setSite(select.val());
         }
 
     })
