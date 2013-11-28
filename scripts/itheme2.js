@@ -145,6 +145,8 @@ AdDemo.prototype = {
         this.renderIFrame();
         //this.loadColors();
 
+        this.root.find('button').removeClass('btn-loading')
+
         if (this.bannerElement) {
             TweenLite.to(this.bannerElement, animationSpeed, {css: {opacity: 0, scale: 0}});
         }
@@ -160,7 +162,7 @@ AdDemo.prototype = {
         var _this = this;
         var element = this.iframeElement;
         if (!element) {
-            var button = $('<div class="button-div"><button>Show Add</button></div>')
+            var button = $('<div class="button-div"><button class="btn-primary-cta btn-block">Show Add</button></div>')
             button.appendTo(this.root);
             button.on('click', 'button',function(){
                 var url = $('#sitePicker').val();
@@ -198,6 +200,9 @@ AdDemo.prototype = {
         element.prop('src', this.scriptUrl + '&callback=' + callbackName + '&url=' + this.site);
         element.appendTo(this.root);
         this.scriptElement = element;
+
+
+        this.root.find('button').addClass('btn-loading')
 
 
 
@@ -359,7 +364,7 @@ AdDemo.prototype = {
          })
          */
 
-        this.root.removeClass('loading');
+        this.root.find('button').removeClass('btn-loading')
     }
 }
 
