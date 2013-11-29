@@ -162,7 +162,7 @@ AdDemo.prototype = {
         var _this = this;
         var element = this.iframeElement;
         if (!element) {
-            var button = $('<div class="button-div"><button class="btn-primary-cta btn-block">Show Add</button></div>')
+            var button = $('<div class="button-div"><button class="btn-regular btn-block">Show Add</button></div>')
             button.appendTo(this.root);
             button.on('click', 'button',function(){
                 var url = $('#sitePicker').val();
