@@ -94,6 +94,22 @@ var siteList = [
 ];
 
 
+var titleList = [
+    {
+        title: 'Native Ads without Integration.',
+        button: 'Show More'
+    },
+    {
+        title: 'Skin-Up your Ads with iTheme.',
+        button: 'Know How'
+    },
+    {
+        title: 'Get rid of boring Ads.',
+        button: 'Go Dynamic'
+    }
+]
+
+
 var getGlobalCallback = function (context) {
     var callback = function (fullData) {
         var data = fullData.colors;
@@ -103,7 +119,7 @@ var getGlobalCallback = function (context) {
             if (dataObj && dataObj.color) {
                 var colorObj = dataObj.color;
 
-                colors.push({color:pusher.color('rgb', colorObj.red, colorObj.green, colorObj.blue).hex6(), pixelCount:dataObj.value});
+                colors.push({color: pusher.color('rgb', colorObj.red, colorObj.green, colorObj.blue).hex6(), pixelCount: dataObj.value});
             }
         }
         context.renderBanner(colors, fullData.font);
@@ -113,12 +129,11 @@ var getGlobalCallback = function (context) {
     return callbackName;
 }
 
+var bannerTemplateFunction = _.template($('#bannerTemplate').html());
 
 var AdDemo = function (config) {
     var _this = this;
     this.root = $('<div class="demo-item"></div>');
-
-
 
 
     /*
@@ -134,7 +149,6 @@ var AdDemo = function (config) {
     this.container = config.container;
 
     this.getButtonColor = config.getButtonColor;
-
 
 
 }
@@ -164,9 +178,9 @@ AdDemo.prototype = {
         if (!element) {
             var button = $('<div class="button-div"><button class="btn-regular btn-block">Show Add</button></div>')
             button.appendTo(this.root);
-            button.on('click', 'button',function(){
+            button.on('click', 'button', function () {
                 var url = $('#sitePicker').val();
-                if(url=== ''){
+                if (url === '') {
                     return;
                 }
                 _this.loadColors();
@@ -190,22 +204,19 @@ AdDemo.prototype = {
         element = $('<script></script>')
         var callbackName = getGlobalCallback(this);
         /*
-        element.prop('onload', function () {
-            if (_this.onRenderAd) {
-                setTimeout(_this.onRenderAd, 3500);
-            }
-        });
+         element.prop('onload', function () {
+         if (_this.onRenderAd) {
+         setTimeout(_this.onRenderAd, 3500);
+         }
+         });
 
-        */
+         */
         element.prop('src', this.scriptUrl + '&callback=' + callbackName + '&url=' + this.site);
         element.appendTo(this.root);
         this.scriptElement = element;
 
 
         this.root.find('button').addClass('btn-loading')
-
-
-
 
 
     },
@@ -240,11 +251,16 @@ AdDemo.prototype = {
 
 
         var element = this.bannerElement;
-        if (!element) {
-            element = $($('#bannerTemplate').html());
-            element.appendTo(this.root);
-            this.bannerElement = element;
+
+        var randomTitle = titleList[Math.floor(Math.random()*titleList.length)];
+
+        if(element){
+            element.remove();
         }
+
+        element = $(bannerTemplateFunction(randomTitle));
+        element.appendTo(this.root);
+        this.bannerElement = element;
 
         element.css({
             'background-color': colors[0]
@@ -257,7 +273,7 @@ AdDemo.prototype = {
         //cosnole.log('1px 1px 1px '+colors[1].complement().hex6());
 
 
-        var buttonBackgroundColor =  this.getButtonColor(colorObjectsArray);
+        var buttonBackgroundColor = this.getButtonColor(colorObjectsArray);
 
 
         element.find('.color3').css({
@@ -267,7 +283,6 @@ AdDemo.prototype = {
         })
 
         TweenLite.to(element, animationSpeed, {css: {opacity: 1, scale: 1}});
-
 
 
         var buildBar = function (label, fn) {
@@ -296,11 +311,8 @@ AdDemo.prototype = {
         var paletteElement = $('#' + this.container);
         paletteElement.empty();
 
-        var buildBar2 = function(label){
+        var buildBar2 = function (label) {
             var sortedArr = colorArray;
-
-
-
 
 
             var ul = $('<ul class="colorList"></ul>');
@@ -323,19 +335,18 @@ AdDemo.prototype = {
         }
 
 
-
         buildBar2('Color Pallet')
         /*
-        buildBar('saturation', function (item) {
-            return item.saturation();
-        })
+         buildBar('saturation', function (item) {
+         return item.saturation();
+         })
 
-        buildBar('hue', function (item) {
-            return item.hue();
-        })
-        buildBar('isGray', function (item) {
-            return item.grayvalue8()
-        })
+         buildBar('hue', function (item) {
+         return item.hue();
+         })
+         buildBar('isGray', function (item) {
+         return item.grayvalue8()
+         })
 
 
 
