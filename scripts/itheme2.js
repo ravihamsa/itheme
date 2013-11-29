@@ -1,7 +1,31 @@
 var siteList = [
     {
-        label: 'My Super Movies',
-        url: 'http://mysupermovies.com'
+        label: 'Techcrunch',
+        url: 'http://techcrunch.com/'
+    },
+    {
+        label: 'IMDB',
+        url: 'http://m.imdb.com/'
+    },
+    {
+        label: 'Goal',
+        url: 'http://m.goal.com/s/en-india'
+    },
+    {
+        label: 'Jabong',
+        url: 'http://m.jabong.com/'
+    },
+    {
+        label: 'NDTV',
+        url: 'http://m.ndtv.com/'
+    },
+    {
+        label: 'Microsoft',
+        url: 'http://www.microsoft.com'
+    },
+    {
+        label: 'Slideshare',
+        url: 'http://www.slideshare.net/mobile/'
     },
     {
         label: 'DSNR Media Group',
@@ -15,82 +39,37 @@ var siteList = [
         label: 'ESPN Cricinfo',
         url: 'http://m.espncricinfo.com/'
     },
-    {
-        label: 'CRICBUZZ',
-        url: 'http://cricbuzz.com/'
-    },
-    {
-        label: 'Techcrunch',
-        url: 'http://techcrunch.com/'
-    },
-    {
-        label: 'IMDB',
-        url: 'http://m.imdb.com/'
-    },
+
     {
         label: 'Star Sports',
         url: 'http://m.starsports.com/smartwap/main.aspx#home-tab_featured'
     },
-    {
-        label: 'Goal',
-        url: 'http://m.goal.com/s/en-india'
-    },
+
     {
         label: 'Myntra',
         url: 'http://www.myntra.com/'
-    },
-    {
-        label: 'Jabong',
-        url: 'http://m.jabong.com/'
-    },
-    {
-        label: 'NDTV',
-        url: 'http://m.ndtv.com/'
     },
     {
         label: 'Business Insider',
         url: 'http://www.businessinsider.in/'
     },
     {
-        label: 'Wikipedia',
-        url: 'http://www.wikipedia.org/'
-    },
-    {
         label: 'Ebay',
         url: 'http://m.ebay.com/'
     },
-    {
-        label: 'Microsoft',
-        url: 'http://www.microsoft.com'
-    },
-    {
-        label: 'BBC',
-        url: 'http://m.bbc.co.uk/'
-    },
+
+
     {
         label: 'CNN',
         url: 'http://edition.cnn.com/'
     },
-    {
-        label: 'Adobe',
-        url: 'http://adobe.com/'
-    },
+
     {
         label: 'CNet',
         url: 'http://cnet.com'
-    },
-    {
-        label: 'Slideshare',
-        url: 'http://www.slideshare.net/mobile/'
-    },
-    {
-        label: 'Forbes',
-        url: 'http://www.forbes.com/'
-    },
-    {
-        label: 'Easyports',
-        url: 'http://www.easports.com/'
     }
+
+
 ];
 
 
@@ -252,9 +231,9 @@ AdDemo.prototype = {
 
         var element = this.bannerElement;
 
-        var randomTitle = titleList[Math.floor(Math.random()*titleList.length)];
+        var randomTitle = titleList[Math.floor(Math.random() * titleList.length)];
 
-        if(element){
+        if (element) {
             element.remove();
         }
 
